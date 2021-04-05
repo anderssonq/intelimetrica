@@ -23,7 +23,7 @@
             <div class="grey--text ml-4">{{ restaurant.rating }}</div>
           </v-row>
 
-          <div class="my-4 subtitle-1">
+          <div class="my-4 subtitle-1 font-weight-bold">
             {{ restaurant.address.street }}
           </div>
 

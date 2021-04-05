@@ -12,7 +12,7 @@ Vue.config.productionTip = false;
 Vue.use(VueSocialSharing);
 Vue.use(VueGoogleMaps, {
   load: {
-    libraries: ["places", "geometry"], // This is required if you use the Autocomplete plugin
+    libraries: ["places", "geometry"],
     key: "AIzaSyCdp8yLy97PDi8mwZLGZ262erZu5dY3AYs",
   },
 });
