@@ -1,5 +1,4 @@
-# intelimetrica
-# Facturador Web FrontEnd App 🔥 
+# Intelimetrica prototype app🔥
 - FrontEnd Engineer Andersson Quintero 👽 
 
 ## Getting Started 📝 
