@@ -168,7 +168,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import { getStandardDeviation } from "../utils";
 export default {
   name: "Restaurant",
@@ -209,6 +209,7 @@ export default {
   mounted() {
     this.generateGlobalMarkers();
     this.updateCircle();
+    // Component checks if a params its present to show a restaurant at map
     if (this.$route.params.id) {
       const id = this.$route.params.id;
       const {
@@ -220,7 +221,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["toggleDrawer"]),
+    /**
+     * Map restaurants array into a restaurant marker format, Method,
+     * @return {Array} markers - Return a new array in another format
+     */
     generateGlobalMarkers: function () {
       const _restaurents = [...this.restaurants].reduce((acum, curr) => {
         acum.push({
@@ -235,12 +239,22 @@ export default {
 
       this.markers = _restaurents;
     },
+    /**
+     * Event google map, Method,
+     * @param {Object} center - Event from google map component
+     */
     updateCenter: function (center) {
       this.center = {
         lat: center.lat(),
         lng: center.lng(),
       };
     },
+    /**
+     * Feature in which given a certain point in a map (You could drop a pin in a map) and a radius in meters, Method,
+     * This method we are using computeDistanceBetween from google maps utils to calculate distance between 2 coors given,
+     * in this case we have to calculate each elements to get our result
+     * @param {Object} center - Event from google map component
+     */
     updateCircleRecomendation: function (center) {
       this.recommendeds = [];
       let circle = null;
@@ -277,8 +291,8 @@ export default {
         const distance = google.maps.geometry.spherical.computeDistanceBetween(
           p1,
           p2
-        ); // meters
-        const distanceKm = parseFloat(distance.toFixed(4)); // convert to kms
+        );
+        const distanceKm = parseFloat(distance.toFixed(4));
         if (distanceKm < this.radiosCircle) {
           _recomendationIds.push(_marker.id);
         }
@@ -299,6 +313,12 @@ export default {
         return 0;
       });
     },
+    /**
+     * Feature nearest restaurants in the zone given a point in a map, a radius in meters and a range of rating, Method,
+     * This method we are using computeDistanceBetween from google maps utils to calculate distance between 2 coors given,
+     * in this case we have to calculate each elements to get our result
+     * @param {Object} center - Event from google map component
+     */
     updateCircle: function (center) {
       let circle = null;
       if (!center) {
@@ -327,8 +347,8 @@ export default {
         const distance = google.maps.geometry.spherical.computeDistanceBetween(
           p1,
           p2
-        ); // meters
-        const distanceKm = parseFloat(distance.toFixed(4)); // convert to kms
+        );
+        const distanceKm = parseFloat(distance.toFixed(4));
         if (distanceKm < this.radiosCircle) {
           _newMarkers.push(_marker);
           _newRatings.push(_marker.rating);

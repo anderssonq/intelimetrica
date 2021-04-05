@@ -88,6 +88,11 @@ export default {
   },
   methods: {
     ...mapActions(["toggleDrawer"]),
+    /**
+     * Sort by alphabet and its rating, knowing a type of search, Method,
+     * @param {String} type - data from localstore
+     * @return {Array} restaurantsChild - Return a new array of elements sorted
+     */
     onSort: function (type) {
       switch (type) {
         case "alphabet":
@@ -127,6 +132,10 @@ export default {
           break;
       }
     },
+    /**
+     * Search by string, Method,
+     * @return {Array} restaurantsChild - Return a new array
+     */
     onSearch: function () {
       const matcher = new RegExp(`^${this.search.toUpperCase()}`, "g");
       if (this.typeSearch === "name") {
